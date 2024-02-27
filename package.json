@@ -29,6 +29,8 @@
     "eslint": "^8.42.0",
     "eslint-config-next": "^14.1.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest-dom": "^5.1.0",
+    "eslint-plugin-testing-library": "^6.2.0",
     "jsdom": "^24.0.0",
     "postcss": "^8.4.33",
     "prettier": "^3.2.4",

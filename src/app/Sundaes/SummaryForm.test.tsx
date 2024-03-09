@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import SummaryForm from './page';
 
 describe('SummaryForm', () => {
@@ -11,15 +12,32 @@ describe('SummaryForm', () => {
 		expect(confirmButton).toBeDisabled();
 	});
 
-	it('enables button when checkbox is checked', () => {
+	it('enables button when checkbox is checked', async () => {
+		const user = userEvent.setup();
 		render(<SummaryForm />);
+
 		const checkbox = screen.getByRole('checkbox', { name: /terms and conditions/i });
 		const confirmButton = screen.getByRole('button', { name: /confirm order/i });
 
-		fireEvent.click(checkbox);
+		await user.click(checkbox);
 		expect(confirmButton).toBeEnabled();
 
-		fireEvent.click(checkbox);
+		await user.click(checkbox);
 		expect(confirmButton).toBeDisabled();
 	});
+});
+
+// Rewrite this test if/when TermsConditionsTooltipV1 can be used
+it('shows the tooltip on hover', async () => {
+	const user = userEvent.setup();
+	render(<SummaryForm />);
+
+	const tooltipText = /see matt for details/i;
+	expect(screen.queryByText(tooltipText)).not.toBeInTheDocument();
+
+	await user.hover(screen.getByText(/terms and conditions/i));
+	expect(screen.getByText(tooltipText)).toBeInTheDocument();
+
+	await user.unhover(screen.getByText(/terms and conditions/i));
+	expect(screen.queryByText(tooltipText)).not.toBeInTheDocument();
 });

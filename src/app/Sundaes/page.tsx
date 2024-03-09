@@ -2,11 +2,36 @@
 
 import { useState } from 'react';
 
-const TermsConditionsTooltip = () => (
-	<span className="flex gap-1 text-blue-500 after:hidden after:bg-slate-800 after:px-1 after:py-0 after:text-white after:content-['See_Matt_for_details'] hover:after:block">
-		Terms and Conditions
-	</span>
+//Tailwind classes do not apply actual styles in tests, so this doesn't work
+const TermsConditionsTooltipV1 = () => (
+	<div className="group flex gap-1">
+		<span className="text-blue-500">Terms and Conditions</span>
+		<span className="hidden rounded bg-slate-700 px-1 py-0 text-white group-hover:block">
+			See Matt for details
+		</span>
+	</div>
 );
+
+const TermsConditionsTooltipV2 = () => {
+	const [hover, setHover] = useState(false);
+
+	return (
+		<div className="flex gap-1">
+			<span
+				onMouseEnter={() => setHover(true)}
+				onMouseLeave={() => setHover(false)}
+				className="text-blue-500"
+			>
+				Terms and Conditions
+			</span>
+			{hover && (
+				<span className="rounded bg-slate-700 px-1 py-0 text-white">
+					See Matt for details
+				</span>
+			)}
+		</div>
+	);
+};
 
 const SummaryForm = () => {
 	const [tcChecked, setTcChecked] = useState(false);
@@ -19,7 +44,7 @@ const SummaryForm = () => {
 					checked={tcChecked}
 					onChange={(e) => setTcChecked(e.target.checked)}
 				/>
-				I agree to the {TermsConditionsTooltip()}
+				I agree to the {TermsConditionsTooltipV2()}
 			</label>
 
 			<button

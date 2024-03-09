@@ -4,14 +4,15 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [react()],
-	test: {
-		environment: 'jsdom',
-		globals: true,
-		setupFiles: './src/setupTests.ts',
-	},
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
+	},
+	test: {
+		css: true, // Despite this, Tailwind classes do not apply actual styles in tests
+		environment: 'jsdom',
+		globals: true,
+		setupFiles: './src/setupTests.ts',
 	},
 });

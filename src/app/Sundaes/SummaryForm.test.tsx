@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import SummaryForm from './SummaryForm';
+import SummaryForm from './page';
 
 describe('SummaryForm', () => {
 	it('starts with t&c unchecked and button disabled', () => {

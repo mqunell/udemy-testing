@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
-	title: 'Next.js Template',
-	description: 'My customized Next.js template to quickly start future projects',
+	title: 'Udemy Testing Course',
+	description: '',
 	icons: {
 		icon: '/favicon.ico',
 	},

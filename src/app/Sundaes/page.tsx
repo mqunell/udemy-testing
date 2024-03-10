@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-//Tailwind classes do not apply actual styles in tests, so this doesn't work
+// Tailwind `group-hover:*` is bugged in tests, so this version is currently unused
 const TermsConditionsTooltipV1 = () => (
 	<div className="group flex gap-1">
 		<span className="text-blue-500">Terms and Conditions</span>

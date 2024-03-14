@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Options from './Options';
 
 // Tailwind `group-hover:*` is bugged in tests, so this version is currently unused
 const TermsConditionsTooltipV1 = () => (
@@ -38,6 +39,9 @@ const SummaryForm = () => {
 
 	return (
 		<div className="flex flex-col items-start gap-2 p-4">
+			<Options optionType="scoops" />
+			<Options optionType="toppings" />
+
 			<label className="flex gap-1">
 				<input
 					type="checkbox"

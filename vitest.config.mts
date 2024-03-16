@@ -10,7 +10,7 @@ export default defineConfig({
 		},
 	},
 	test: {
-		css: true, // Despite this, Tailwind classes do not apply actual styles in tests
+		css: true,
 		environment: 'jsdom',
 		globals: true,
 		setupFiles: './src/setupTests.ts',

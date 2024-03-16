@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Options from './Options';
 
-//Tailwind classes do not apply actual styles in tests, so this doesn't work
+// Tailwind `group-hover:*` is bugged in tests, so this version is currently unused
 const TermsConditionsTooltipV1 = () => (
 	<div className="group flex gap-1">
 		<span className="text-blue-500">Terms and Conditions</span>
@@ -38,6 +39,9 @@ const SummaryForm = () => {
 
 	return (
 		<div className="flex flex-col items-start gap-2 p-4">
+			<Options optionType="scoops" />
+			<Options optionType="toppings" />
+
 			<label className="flex gap-1">
 				<input
 					type="checkbox"

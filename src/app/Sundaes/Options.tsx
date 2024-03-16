@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const Options = ({ optionType }: { optionType: 'scoops' | 'toppings' }) => {
-	const [items, setItems] = useState<Option[]>([]);
+	const [items, setItems] = useState<Option[] | null>([]);
 
 	useEffect(() => {
 		const getItems = async () => {
@@ -10,12 +10,16 @@ const Options = ({ optionType }: { optionType: 'scoops' | 'toppings' }) => {
 				const data = await res.json();
 				setItems(data);
 			} catch (error) {
-				setItems([]);
+				setItems(null);
 			}
 		};
 
 		getItems();
 	}, [optionType]);
+
+	if (items === null) {
+		return <div role="alert">Please try again.</div>;
+	}
 
 	return (
 		<div>

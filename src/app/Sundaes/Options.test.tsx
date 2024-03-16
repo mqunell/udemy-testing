@@ -1,4 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { http, HttpResponse } from 'msw';
+import { server } from '../../mocks/server';
 import Options from './Options';
 
 describe('Options', () => {
@@ -24,5 +26,19 @@ describe('Options', () => {
 
 		const altText = toppingImages.map((element) => element.alt);
 		expect(altText).toEqual(['Cherries topping', 'M&Ms topping', 'Hot fudge topping']);
+	});
+
+	it('handles scoops api fetch error', async () => {
+		const newHandlers = [
+			http.get('/api/scoops', () => {
+				return new HttpResponse(null, { status: 500 });
+			}),
+		];
+		server.resetHandlers(...newHandlers);
+
+		render(<Options optionType="scoops" />);
+
+		await screen.findByRole('alert');
+		await screen.findByText(/please try again/i);
 	});
 });

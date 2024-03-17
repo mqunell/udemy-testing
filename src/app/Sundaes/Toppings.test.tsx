@@ -1,23 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { server } from '../../mocks/server';
-import Options from './Options';
+import Toppings from './Toppings';
 
-describe('Options', () => {
-	it('renders image for each scoop option', async () => {
-		render(<Options optionType="scoops" />);
-
-		const scoopImages = (await screen.findAllByRole('img', {
-			name: /scoop$/i,
-		})) as HTMLImageElement[];
-		expect(scoopImages).toHaveLength(2);
-
-		const altText = scoopImages.map((element) => element.alt);
-		expect(altText).toEqual(['Chocolate scoop', 'Vanilla scoop']);
-	});
-
+describe('Toppings', () => {
 	it('renders image for each topping option', async () => {
-		render(<Options optionType="toppings" />);
+		render(<Toppings />);
 
 		const toppingImages = (await screen.findAllByRole('img', {
 			name: /topping$/i,
@@ -28,15 +16,15 @@ describe('Options', () => {
 		expect(altText).toEqual(['Cherries topping', 'M&Ms topping', 'Hot fudge topping']);
 	});
 
-	it('handles scoops api fetch error', async () => {
+	it('handles toppings api fetch error', async () => {
 		const newHandlers = [
-			http.get('/api/scoops', () => {
+			http.get('/api/toppings', () => {
 				return new HttpResponse(null, { status: 500 });
 			}),
 		];
 		server.resetHandlers(...newHandlers);
 
-		render(<Options optionType="scoops" />);
+		render(<Toppings />);
 
 		await screen.findByRole('alert');
 		await screen.findByText(/please try again/i);

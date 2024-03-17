@@ -16,7 +16,7 @@ test('manually applying role', () => {
 	// screen.getByRole('alert', { name: 'Please try again.' });
 	screen.getByRole('alert');
 	screen.getByText('Please try again.');
-	logRoles(container);
+	// logRoles(container);
 });
 
 test('same thing on a button', () => {

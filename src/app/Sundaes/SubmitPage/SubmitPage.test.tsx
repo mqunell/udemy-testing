@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SummaryForm from './page';
+import SubmitPage from './SubmitPage';
 
-describe('SummaryForm', () => {
+describe('SubmitPage', () => {
 	it('starts with t&c unchecked and button disabled', () => {
-		render(<SummaryForm />);
+		render(<SubmitPage />);
 		const checkbox = screen.getByRole('checkbox', { name: /terms and conditions/i });
 		expect(checkbox).not.toBeChecked();
 
@@ -14,7 +14,7 @@ describe('SummaryForm', () => {
 
 	it('enables button when checkbox is checked', async () => {
 		const user = userEvent.setup();
-		render(<SummaryForm />);
+		render(<SubmitPage />);
 
 		const checkbox = screen.getByRole('checkbox', { name: /terms and conditions/i });
 		const confirmButton = screen.getByRole('button', { name: /confirm order/i });
@@ -27,10 +27,9 @@ describe('SummaryForm', () => {
 	});
 });
 
-// Rewrite this test if/when TermsConditionsTooltipV1 can be used
 it('shows the tooltip on hover', async () => {
 	const user = userEvent.setup();
-	render(<SummaryForm />);
+	render(<SubmitPage />);
 
 	const tooltipText = /see matt for details/i;
 	expect(screen.queryByText(tooltipText)).not.toBeInTheDocument();

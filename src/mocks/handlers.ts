@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 export const handlers = [
 	http.get('/api/scoops', () => {
-		const scoops: Option[] = [
+		const scoops: ApiOption[] = [
 			{ name: 'Chocolate', imagePath: '/images/chocolate.png' },
 			{ name: 'Vanilla', imagePath: '/images/vanilla.png' },
 		];
@@ -11,7 +11,7 @@ export const handlers = [
 	}),
 
 	http.get('/api/toppings', () => {
-		const toppings: Option[] = [
+		const toppings: ApiOption[] = [
 			{ name: 'Cherries', imagePath: '/images/cherries.png' },
 			{ name: 'M&Ms', imagePath: '/images/m-and-ms.png' },
 			{ name: 'Hot fudge', imagePath: '/images/hot-fudge.png' },

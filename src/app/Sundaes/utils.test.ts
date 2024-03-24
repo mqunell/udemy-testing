@@ -1,4 +1,4 @@
-import { formatCurrency } from './OptionLayout';
+import { formatCurrency } from './utils';
 
 describe('formatCurrency', () => {
 	it('formats USD correctly', () => {

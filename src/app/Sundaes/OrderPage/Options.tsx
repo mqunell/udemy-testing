@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useOrderDetails } from '../OrderDetails';
 import { PRICES } from '../constants';
 import { formatCurrency } from '../utils';
+import ScoopOption from './ScoopOption';
+import ToppingOption from './ToppingOption';
 
 const Options = ({ optType }: { optType: OptionType }) => {
+	const { totals } = useOrderDetails();
 	const [options, setOptions] = useState<ApiOption[]>([]);
 	const [error, setError] = useState('');
 
@@ -22,6 +26,7 @@ const Options = ({ optType }: { optType: OptionType }) => {
 		return <div role="alert">{error}</div>;
 	}
 
+	const ItemComponent = optType === 'scoops' ? ScoopOption : ToppingOption;
 	const title = optType[0].toUpperCase() + optType.slice(1);
 
 	return (
@@ -29,20 +34,12 @@ const Options = ({ optType }: { optType: OptionType }) => {
 			<h2 className="text-lg">{title}</h2>
 			<p>{formatCurrency(PRICES[optType])} each</p>
 			<p>
-				{title} subtotal: {/* formatCurrency(subtotal) */}
+				{title} subtotal: {formatCurrency(totals[optType])}
 			</p>
 
 			<div className="flex gap-8">
 				{options.map(({ name, imagePath }) => (
-					<div key={name} className="flex flex-col gap-1">
-						{/* eslint-disable-next-line */}
-						<img
-							src={imagePath}
-							alt={`${name} ${optType.slice(0, -1)}`}
-							className="size-40 border border-black"
-						/>
-						<span>{name}</span>
-					</div>
+					<ItemComponent key={name} name={name} imagePath={imagePath} />
 				))}
 			</div>
 		</section>

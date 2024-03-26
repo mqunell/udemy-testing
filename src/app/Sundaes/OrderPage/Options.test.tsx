@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
-import { server } from '../../../mocks/server';
+import { render, screen } from '@/app/Sundaes/test-utils';
+import { server } from '@/mocks/server';
 import Options from './Options';
 
 describe('Options', () => {
@@ -30,6 +31,24 @@ describe('Options', () => {
 			await screen.findByRole('alert');
 			await screen.findByText(/please try again/i);
 		});
+
+		it('updates the scoops total when scoops change', async () => {
+			const user = userEvent.setup();
+			render(<Options optType="scoops" />);
+
+			const scoopsSubtotal = screen.getByText('Scoops subtotal: $', { exact: false });
+			expect(scoopsSubtotal).toHaveTextContent('0.00');
+
+			const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
+			await user.clear(vanillaInput);
+			await user.type(vanillaInput, '1');
+			expect(scoopsSubtotal).toHaveTextContent('2.00');
+
+			const chocolateInput = await screen.findByRole('spinbutton', { name: 'Chocolate' });
+			await user.clear(chocolateInput);
+			await user.type(chocolateInput, '2');
+			expect(scoopsSubtotal).toHaveTextContent('6.00');
+		});
 	});
 
 	describe('toppings', () => {
@@ -57,6 +76,25 @@ describe('Options', () => {
 
 			await screen.findByRole('alert');
 			await screen.findByText(/please try again/i);
+		});
+
+		it('updates the toppings total when toppings change', async () => {
+			const user = userEvent.setup();
+			render(<Options optType="toppings" />);
+
+			const toppingsSubtotal = screen.getByText('Toppings subtotal: $', { exact: false });
+			expect(toppingsSubtotal).toHaveTextContent('0.00');
+
+			const cherriesInput = await screen.findByRole('checkbox', { name: 'Cherries' });
+			await user.click(cherriesInput);
+			expect(toppingsSubtotal).toHaveTextContent('1.50');
+
+			const chocolateInput = await screen.findByRole('checkbox', { name: 'M&Ms' });
+			await user.click(chocolateInput);
+			expect(toppingsSubtotal).toHaveTextContent('3.00');
+
+			await user.click(chocolateInput);
+			expect(toppingsSubtotal).toHaveTextContent('1.50');
 		});
 	});
 });

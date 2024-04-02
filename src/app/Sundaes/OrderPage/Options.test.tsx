@@ -36,18 +36,18 @@ describe('Options', () => {
 			const user = userEvent.setup();
 			render(<Options optType="scoops" />);
 
-			const scoopsSubtotal = screen.getByText('Scoops subtotal: $', { exact: false });
-			expect(scoopsSubtotal).toHaveTextContent('0.00');
+			const scoopsSubtotal = screen.getByText('Scoops subtotal:', { exact: false });
+			expect(scoopsSubtotal).toHaveTextContent(/\$0.00$/);
 
 			const vanillaInput = await screen.findByRole('spinbutton', { name: 'Vanilla' });
 			await user.clear(vanillaInput);
 			await user.type(vanillaInput, '1');
-			expect(scoopsSubtotal).toHaveTextContent('2.00');
+			expect(scoopsSubtotal).toHaveTextContent(/\$2.00$/);
 
 			const chocolateInput = await screen.findByRole('spinbutton', { name: 'Chocolate' });
 			await user.clear(chocolateInput);
 			await user.type(chocolateInput, '2');
-			expect(scoopsSubtotal).toHaveTextContent('6.00');
+			expect(scoopsSubtotal).toHaveTextContent(/\$6.00$/);
 		});
 	});
 
@@ -82,19 +82,19 @@ describe('Options', () => {
 			const user = userEvent.setup();
 			render(<Options optType="toppings" />);
 
-			const toppingsSubtotal = screen.getByText('Toppings subtotal: $', { exact: false });
-			expect(toppingsSubtotal).toHaveTextContent('0.00');
+			const toppingsSubtotal = screen.getByText('Toppings subtotal:', { exact: false });
+			expect(toppingsSubtotal).toHaveTextContent(/\$0.00$/);
 
-			const cherriesInput = await screen.findByRole('checkbox', { name: 'Cherries' });
-			await user.click(cherriesInput);
-			expect(toppingsSubtotal).toHaveTextContent('1.50');
+			const cherriesCheckbox = await screen.findByRole('checkbox', { name: 'Cherries' });
+			await user.click(cherriesCheckbox);
+			expect(toppingsSubtotal).toHaveTextContent(/\$1.50$/);
 
-			const chocolateInput = await screen.findByRole('checkbox', { name: 'M&Ms' });
-			await user.click(chocolateInput);
-			expect(toppingsSubtotal).toHaveTextContent('3.00');
+			const mmsCheckbox = await screen.findByRole('checkbox', { name: 'M&Ms' });
+			await user.click(mmsCheckbox);
+			expect(toppingsSubtotal).toHaveTextContent(/\$3.00$/);
 
-			await user.click(chocolateInput);
-			expect(toppingsSubtotal).toHaveTextContent('1.50');
+			await user.click(mmsCheckbox);
+			expect(toppingsSubtotal).toHaveTextContent(/\$1.50$/);
 		});
 	});
 });

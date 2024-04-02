@@ -5,7 +5,8 @@ const ScoopOption = ({ name, imagePath }: ApiOption): JSX.Element => {
 	const { updateItemCount } = useOrderDetails();
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const newCount = parseInt(event.target.value);
+		let newCount = parseInt(event.target.value);
+		if (!newCount || newCount < 0) newCount = 0;
 		updateItemCount(optType, name, newCount);
 	};
 

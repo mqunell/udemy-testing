@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SummaryForm from './page';
+import SummaryForm from './SummaryForm';
 
 describe('SummaryForm', () => {
 	it('starts with t&c unchecked and button disabled', () => {
@@ -27,7 +27,6 @@ describe('SummaryForm', () => {
 	});
 });
 
-// Rewrite this test if/when TermsConditionsTooltipV1 can be used
 it('shows the tooltip on hover', async () => {
 	const user = userEvent.setup();
 	render(<SummaryForm />);

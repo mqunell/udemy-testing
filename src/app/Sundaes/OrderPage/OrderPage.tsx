@@ -1,9 +1,10 @@
 import { useOrderDetails } from '../OrderDetails';
+import Button from '../components/Button';
 import { formatCurrency } from '../utils';
 import Options from './Options';
 
 const OrderPage = () => {
-	const { totals } = useOrderDetails();
+	const { totals, setOrderPhase } = useOrderDetails();
 	const grandTotal = totals.scoops + totals.toppings;
 
 	return (
@@ -13,6 +14,7 @@ const OrderPage = () => {
 			<Options optType="toppings" />
 			<section>
 				<h2>Grand total: {formatCurrency(grandTotal)}</h2>
+				<Button onClick={() => setOrderPhase('submit')}>Order Sundae!</Button>
 			</section>
 		</div>
 	);

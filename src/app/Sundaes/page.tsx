@@ -1,24 +1,27 @@
 'use client';
 
-import { useState } from 'react';
 import ConfirmationPage from './ConfirmationPage/ConfirmationPage';
-import { OrderDetailsProvider } from './OrderDetails';
+import { OrderDetailsProvider, useOrderDetails } from './OrderDetails';
 import OrderPage from './OrderPage/OrderPage';
 import SubmitPage from './SubmitPage/SubmitPage';
 
-type OrderPhase = 'order' | 'submit' | 'confirmation';
+const PhaseHandler = () => {
+	const { orderPhase } = useOrderDetails();
 
-const Sundaes = () => {
-	const [orderPhase, setOrderPhase] = useState<OrderPhase>('order');
-
-	return (
-		<OrderDetailsProvider>
-			{/* todo: pass setOrderPhase (or wrapper) to each of these */}
-			{orderPhase === 'order' && <OrderPage />}
-			{orderPhase === 'submit' && <SubmitPage />}
-			{orderPhase === 'confirmation' && <ConfirmationPage />}
-		</OrderDetailsProvider>
-	);
+	switch (orderPhase) {
+		case 'order':
+			return <OrderPage />;
+		case 'submit':
+			return <SubmitPage />;
+		case 'confirmation':
+			return <ConfirmationPage />;
+	}
 };
+
+const Sundaes = () => (
+	<OrderDetailsProvider>
+		<PhaseHandler />
+	</OrderDetailsProvider>
+);
 
 export default Sundaes;

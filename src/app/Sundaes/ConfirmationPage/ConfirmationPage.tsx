@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useOrderDetails } from '../OrderDetails';
+import Button from '../components/Button';
 
 const ConfirmationPage = () => {
+	const { setOrderPhase } = useOrderDetails();
 	const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -20,9 +23,7 @@ const ConfirmationPage = () => {
 				</p>
 			</div>
 
-			<button className="rounded bg-blue-500 px-2 py-1 text-white enabled:hover:ring-2 enabled:hover:ring-blue-600 disabled:bg-slate-500">
-				Create new order
-			</button>
+			<Button onClick={() => setOrderPhase('order')}>Create new order</Button>
 		</section>
 	);
 };

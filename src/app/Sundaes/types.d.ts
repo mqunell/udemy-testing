@@ -14,6 +14,10 @@ type OrderDetailsContextType = {
 		scoops: number;
 		toppings: number;
 	};
+	orderPhase: OrderPhase;
+	setOrderPhase: (phase: OrderPhase) => void;
 	updateItemCount: (optType: OptionType, itemName: string, newCount: number) => void;
 	resetOrder: () => void;
 };
+
+type OrderPhase = 'order' | 'submit' | 'confirmation';

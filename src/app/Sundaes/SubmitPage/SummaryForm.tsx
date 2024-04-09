@@ -25,9 +25,7 @@ const SummaryForm = () => {
 	const [tcChecked, setTcChecked] = useState(false);
 
 	return (
-		<div className="flex flex-col items-start gap-4 p-4">
-			<h1 className="text-xl">Design your Sundae!</h1>
-
+		<>
 			<div>
 				<label className="mb-1 flex gap-1">
 					<input
@@ -45,7 +43,7 @@ const SummaryForm = () => {
 					Confirm order
 				</button>
 			</div>
-		</div>
+		</>
 	);
 };
 

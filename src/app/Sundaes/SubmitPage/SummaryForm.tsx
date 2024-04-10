@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useOrderDetails } from '../OrderDetails';
+import Button from '../components/Button';
 
 const TermsConditionsTooltip = () => {
 	const [hover, setHover] = useState(false);
@@ -22,12 +24,11 @@ const TermsConditionsTooltip = () => {
 };
 
 const SummaryForm = () => {
+	const { setOrderPhase } = useOrderDetails();
 	const [tcChecked, setTcChecked] = useState(false);
 
 	return (
-		<div className="flex flex-col items-start gap-4 p-4">
-			<h1 className="text-xl">Design your Sundae!</h1>
-
+		<>
 			<div>
 				<label className="mb-1 flex gap-1">
 					<input
@@ -38,14 +39,11 @@ const SummaryForm = () => {
 					I agree to the {TermsConditionsTooltip()}
 				</label>
 
-				<button
-					className="rounded bg-blue-500 px-2 py-1 text-white enabled:hover:ring-2 enabled:hover:ring-blue-600 disabled:bg-slate-500"
-					disabled={!tcChecked}
-				>
+				<Button disabled={!tcChecked} onClick={() => setOrderPhase('confirmation')}>
 					Confirm order
-				</button>
+				</Button>
 			</div>
-		</div>
+		</>
 	);
 };
 

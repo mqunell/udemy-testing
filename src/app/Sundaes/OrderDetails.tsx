@@ -17,6 +17,8 @@ export const useOrderDetails = () => {
 
 // Context Provider with internal state, getters, and settings - this wraps applicable components
 export const OrderDetailsProvider = (props: any) => {
+	const [orderPhase, setOrderPhase] = useState<OrderPhase>('order');
+
 	const [optionCounts, setOptionCounts] = useState<{
 		scoops: { [key: string]: number };
 		toppings: { [key: string]: number };
@@ -44,6 +46,8 @@ export const OrderDetailsProvider = (props: any) => {
 	const value: OrderDetailsContextType = {
 		optionCounts,
 		totals,
+		orderPhase,
+		setOrderPhase,
 		updateItemCount,
 		resetOrder,
 	};

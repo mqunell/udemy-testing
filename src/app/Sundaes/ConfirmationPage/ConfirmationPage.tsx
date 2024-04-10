@@ -3,12 +3,19 @@ import { useOrderDetails } from '../OrderDetails';
 import Button from '../components/Button';
 
 const ConfirmationPage = () => {
-	const { setOrderPhase } = useOrderDetails();
+	const { resetOrder, setOrderPhase } = useOrderDetails();
 	const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
 	useEffect(() => {
-		// fetch order number and update state
-		// setOrderNumber('12345');
+		(async () => {
+			try {
+				const res = await fetch('/api/order', { method: 'post' });
+				const data = await res.json();
+				setOrderNumber(data.orderNumber);
+			} catch (error) {
+				setOrderNumber(null);
+			}
+		})();
 	}, []);
 
 	if (!orderNumber) return <p>Loading...</p>;
@@ -23,7 +30,14 @@ const ConfirmationPage = () => {
 				</p>
 			</div>
 
-			<Button onClick={() => setOrderPhase('order')}>Create new order</Button>
+			<Button
+				onClick={() => {
+					resetOrder();
+					setOrderPhase('order');
+				}}
+			>
+				Create new order
+			</Button>
 		</section>
 	);
 };

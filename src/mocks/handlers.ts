@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 
 export const handlers = [
 	http.get('/api/scoops', () => {
@@ -18,5 +18,10 @@ export const handlers = [
 		];
 
 		return HttpResponse.json(toppings);
+	}),
+
+	http.post('/api/order', async () => {
+		await delay(100);
+		return HttpResponse.json({ orderNumber: '12345' }, { status: 200 });
 	}),
 ];
